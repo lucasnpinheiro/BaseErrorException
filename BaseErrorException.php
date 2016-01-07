@@ -12,6 +12,11 @@
 
 namespace Base;
 
+/**
+ * Class BaseErrorException
+ *
+ * @package Base
+ */
 class BaseErrorException
 {
     // error data to output
@@ -39,6 +44,9 @@ class BaseErrorException
         16384 => 'E_USER_DEPRECATED'
     ];
 
+    /**
+     * Construct
+     */
     public function __construct()
     {
         if (!defined('ERROR_PATH')) {
@@ -53,7 +61,9 @@ class BaseErrorException
         set_exception_handler(array($this, 'logException'));
     }
 
-    // check for fatal error
+    /**
+     * Check for fatal error
+     */
     public function onShutdown()
     {
         // get the last occurred error
@@ -113,13 +123,24 @@ class BaseErrorException
         echo $html;
     }
 
-    // error handler
+    /**
+     * Error handler
+     * @param $num
+     * @param $str
+     * @param $file
+     * @param $line
+     * @param null $context
+     */
     function errorHandler($num, $str, $file, $line, $context = null)
     {
         self::$errorList[] = new \ErrorException($str, 0, $num, $file, $line);
     }
 
-    // save log in log file
+    /**
+     * Save log in log file
+     * @param \Exception $error
+     * @return string
+     */
     function logException(\Exception $error)
     {
         $severity = $error->getSeverity();
@@ -151,7 +172,10 @@ class BaseErrorException
         return $this->showError();
     }
 
-    // display error using error template file
+    /**
+     * Display error using error template file
+     * @return string
+     */
     public function showError()
     {
         return $content = '<tr class="error ' . strtolower($this->errorData['name']) . '">
