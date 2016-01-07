@@ -25,3 +25,8 @@ if(DEV_ENV){
 // include and init BaseErrorException
 include_once 'BaseErrorException.php';
 $baseErrorException = new \Base\BaseErrorException();
+
+// test BaseErrorException
+//trigger_error("E_USER_ERROR", E_USER_ERROR);
+//trigger_error("E_USER_NOTICE", E_USER_NOTICE);
+//trigger_error("E_USER_DEPRECATED", E_USER_DEPRECATED);
